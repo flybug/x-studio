@@ -1,0 +1,22 @@
+<!-- <router-outlet></router-outlet> -->
+<x-mindmap #mindMap></x-mindmap>
+<div class="flex-container-row fixed-top navbar-header">
+    <div class="flex-container-row navbar-cmd">
+        <div class="navbar-title">{{title}}</div>
+        <div class="navbar-menu flex-container-row">
+            <button mat-icon-button color="primary">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+                <mat-icon>save</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+                <mat-icon>settings</mat-icon>
+            </button>
+        </div>
+    </div>
+    <x-search (selectedId)="mindMap.select($event)"></x-search>
+</div>

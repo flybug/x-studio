@@ -1,0 +1,51 @@
+<svg #svgCanvas xmlns="http://www.w3.org/2000/svg" [attr.width]="screenSize.width + 'px'"
+    [attr.height]="screenSize.height + 'px'" [attr.viewBox]="'0 0 ' + (screenSize.width) + ' ' + (screenSize.height)">
+    <g #svgRoot>
+        <g #stormLinks>
+        </g>
+        <g #stormNodes>
+            <ng-container *ngTemplateOutlet="treeViewList; context:{$implicit:[ds.getRootNode()]}"></ng-container>
+            <ng-template #treeViewList let-nodes>
+                <ng-container *ngFor="let node of nodes; let idx=index">
+                    <text xAnchor [node]="node" id="{{node.id}}" [ngClass]="ds.isNodeSelected(node.getId()) ? 'textFocus' : ''"
+                        [attr.x]="node.getX()" [attr.y]="node.getY()" [attr.font-family]="'Roboto'"
+                        [attr.font-size]="node.style.fontSize" (click)="clickOnNode($event, node.getId())"
+                        (dblclick)="doubleClickOnNode($event, node.getId())" [attr.visibility]="getVisibleState(node.getId())">
+                        {{node.name}}
+                    </text>
+
+                    <ng-container *ngIf="ds.isNodeSelected(node.getId()) && !isNodeEditing(node.getId())">
+                        <g
+                            [attr.transform]="'translate(' + (node.getX() - node.style.fontSize) + ',' + (node.getY() - (node.getHeight() + node.style.fontSize) / 2) + ')'">
+                            <foreignObject [attr.x]="0" [attr.y]="0" [attr.width]="1" [attr.height]="1"
+                                [ngStyle]="{'overflow': 'visible'}">
+                                <div class="selection" (click)="clickOnNode($event, node.getId())"
+                                    [ngStyle]="{'width': (node.getWidth() + node.style.fontSize * 2 - 2) + 'px','height': node.getHeight() + 'px'}">
+                                </div>
+                            </foreignObject>
+                        </g>
+                    </ng-container>
+
+                    <ng-container *ngIf="isNodeEditing(node.getId())">
+                        <g class="textEditor"
+                            [attr.transform]="'translate(' + (node.getX() - node.style.fontSize) + ',' + (node.getY() - (node.getHeight() + node.style.fontSize) / 2) + ')'">
+                            <foreignObject [attr.x]="0" [attr.y]="0" [attr.width]="1" [attr.height]="1"
+                                [ngStyle]="{'overflow': 'visible'}">
+                                <input xAutofocus #textEditor type="text" [(ngModel)]="node.name"
+                                    (change)="onInputChange(textEditor.value, node)"
+                                    [ngStyle]="{'width': (node.getWidth() + node.style.fontSize * 2) + 'px','height': node.getHeight() + 'px', 'font-size':node.style.fontSize+'px','font-family':'Roboto'}"
+                                    (blur)='stopEditing()'>
+                            </foreignObject>
+                        </g>
+                    </ng-container>
+
+                    <ng-container *ngIf="node.getParent()">
+                        <path [attr.d]="getPathFromParent(node)" fill="transparent" stroke="gray" stroke-width="2" />
+                    </ng-container>
+
+                    <ng-container *ngTemplateOutlet="treeViewList; context:{$implicit:node.children}" />
+                </ng-container>
+            </ng-template>
+        </g>
+    </g>
+</svg>

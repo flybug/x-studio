@@ -1,0 +1,18 @@
+<mat-form-field appearance="standard">
+    <mat-label>Search</mat-label>
+    <input #hunter name="hunter" matInput type="text" [(ngModel)]="searchStr" (blur)="onBlur()"
+        (keydown.enter)="search($event, hunter.value);false" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <mat-icon matSuffix>search</mat-icon>
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+        [cdkConnectedOverlayOpen]="searchResults.length > 0">
+        <mat-card>
+            <mat-card-content class="searchList">
+                <mat-selection-list #selectedNode [multiple]="false">
+                    <mat-list-option *ngFor="let node of searchResults" (click)="select($event, node);hunter.blur()">
+                        {{ node.getName() }}
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</mat-form-field>
