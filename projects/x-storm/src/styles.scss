@@ -70,8 +70,11 @@ body {
 }
 
 .searchList {
+    @extend .panel;
     overflow: auto;
     max-height: 20rem;
+    max-width: 20rem;
+    min-width: 10rem;
 }
 
 svg {

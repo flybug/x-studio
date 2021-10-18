@@ -185,7 +185,9 @@ export class XMindmapComponent implements OnInit, AfterViewInit {
         // TODO: new node name
         const newNode = this.ds.newDataNode(parent.getName() + '-' + parent.getChildren().length);
         this.ds.addChild(parent, newNode, node);
-        this.startNodeEditing(newNode.getId());
+        const id = newNode.getId();
+        this.ds.selectNodes([id]);
+        this.startNodeEditing(id);
       }
     }
   }
@@ -196,8 +198,10 @@ export class XMindmapComponent implements OnInit, AfterViewInit {
       // TODO: new node name
       const newNode = this.ds.newDataNode(parent.getName() + '-' + parent.getChildren().length);
       this.ds.addChild(parent, newNode);
-      this.startNodeEditing(newNode.getId());
-    }
+      const id = newNode.getId();
+      this.ds.selectNodes([id]);
+      this.startNodeEditing(id);
+  }
   }
 
   onInputChange(value: string, node: DataNode): void {

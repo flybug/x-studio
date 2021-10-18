@@ -14,6 +14,8 @@ export class XSearchComponent implements OnInit {
   searchStr = '';
   searchResults: Array<DataNode> = [];
 
+  isOnBlur = false;
+
   constructor(private ds: StormDataService) { }
 
   ngOnInit(): void {
@@ -44,8 +46,24 @@ export class XSearchComponent implements OnInit {
   }
 
   onBlur(): void {
-    setTimeout(() => {
+    if (this.isOnBlur) {
       this.cleanResult();
-    })
+    }
+  }
+
+  private enableBlur() {
+    this.isOnBlur = true;
+  }
+
+  private disableBlur() {
+    this.isOnBlur = false;
+  }
+
+  onMouseEnter(): void {
+    this.disableBlur()
+  }
+
+  onMouseLeave(): void {
+    this.enableBlur();
   }
 }

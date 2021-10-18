@@ -67,9 +67,11 @@ export class DataNode {
 
     updateAnchorPoint(): void {
         this.pointIn.x = this.x - this.style.fontSize;
-        this.pointIn.y = this.y - this.style.fontSize / 3;
+        this.pointIn.y = this.y - this.style.fontSize / 2;
         this.pointOut.x = this.x + this.width + this.style.fontSize;
-        this.pointOut.y = this.y - this.style.fontSize / 3;
+        this.pointOut.y = this.y - this.style.fontSize / 2;
+        // this.pointIn.y = this.y;
+        // this.pointOut.y = this.y;
     }
 
     setBoundingLocation(rect: any): void {
@@ -115,10 +117,10 @@ export class DataNode {
     }
 
     updateChildrenY(): void {
-        let y = this.y - this.viewBoxHeight / 2;
+        let y = this.pointOut.y - this.viewBoxHeight / 2;
         this.children.forEach((node, idx) => {
             const nodeHeight = node.getViewBoxHeight();
-            node.setY(y + nodeHeight / 2);
+            node.setY(y + (nodeHeight + node.getStyle().fontSize) / 2);
             y += nodeHeight;
             node.updateChildrenY();
         });

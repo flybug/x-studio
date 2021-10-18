@@ -4,7 +4,7 @@ import { XSearchComponent } from './x-search/x-search.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +22,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    MatListModule,
+    MatSelectModule,
     OverlayModule,
     FormsModule,
     MatCardModule,

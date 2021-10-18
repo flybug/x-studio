@@ -24,7 +24,7 @@ export class StormDataService {
   }
 
   demo(): void {
-    const levelNum = 5;
+    const levelNum = 2;
     const numPerLevel = 2;
     const stack: Array<DataNode> = new Array();
     stack.push(this.rootNode);
